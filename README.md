@@ -124,7 +124,7 @@ Used-Car-Price-Prediction-and-Insights-System/
 ## 👨‍💻 Contributors
 
 * **Yug Umrania**
-* *(Add your teammate’s name here)*
+* **Parth Thakkar**
 
 ---
 
