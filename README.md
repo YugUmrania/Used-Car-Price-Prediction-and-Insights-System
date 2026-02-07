@@ -144,7 +144,7 @@ Model Training → Model Evaluation → Deployment
 - Deploy the trained model using **Flask or Streamlit**
 - Create an interactive **web-based interface**
 - Provide real-time market insights
-- Improve accuracy using advanced ML models (XGBoost, LightGBM)
+- Improve accuracy using advanced ML models (XGBoost)
 - Integrate model API for external usage
 
 ---
