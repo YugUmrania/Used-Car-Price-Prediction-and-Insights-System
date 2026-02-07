@@ -111,22 +111,19 @@ Model Training → Model Evaluation → Deployment
 ---
 
 ## 🏗 Project Structure
-
-Used-Car-Price-Prediction-and-Insights-System/
-│
-├── data/
-│ ├── raw/ # Original datasets
-│ └── processed/ # Cleaned & merged dataset
-│
-├── notebooks/
-│ ├── Data Integration & Cleaning
-│ └── Data Modelling (in progress)
-│
-├── src/ # ML scripts (future implementation)
-├── README.md
-├── requirements.txt
-└── .gitignore
-
+```
+📦 Used-Car-Price-Prediction-and-Insights-System
+ ┣ 📂 data
+ ┃ ┣ 📂 raw
+ ┃ ┗ 📂 processed
+ ┣ 📂 notebooks
+ ┃ ┣ 📓 Data_Integration_Cleaning.ipynb
+ ┃ ┗ 📓 Data_Modelling.ipynb
+ ┣ 📂 src
+ ┣ 📄 README.md
+ ┣ 📄 requirements.txt
+ ┗ 📄 .gitignore
+```
 
 ---
 
