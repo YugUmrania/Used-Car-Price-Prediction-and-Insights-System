@@ -54,7 +54,9 @@ This project uses **two used-car datasets** that were:
 
 1. Merged and integrated  
 2. Cleaned and standardized  
-3. Prepared for encoding and feature engineering  
+3. Prepared for encoding and feature engineering
+4. The final cleaned and integrated dataset is available in:
+   data/processed/new_final_dataset.csv 
 
 ### ✅ Current Progress
 
@@ -164,4 +166,4 @@ This project is licensed under the **MIT License**.
 
 ## 📢 Disclaimer
 
-This repository is part of an **academic Semester Guided Project (SGP)** and is intended for learning and educational purposes only.
+This repository is part of an **academic Software Group Project (SGP)** and is intended for learning and educational purposes only.
