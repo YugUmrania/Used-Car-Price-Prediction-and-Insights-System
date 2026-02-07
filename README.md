@@ -1,30 +1,50 @@
-# Used Car Price Prediction and Insights System
+<h1 align="center">🚗 Used Car Price Prediction & Insights System</h1>
 
-## 📌 Project Overview
+<p align="center">
+A Machine Learning Based System to Predict Used Car Prices & Generate Market Insights
+</p>
 
-The **Used Car Price Prediction and Insights System** is a machine learning–based project developed as part of the **Semester Guided Project (SGP)**.
-The goal of this system is to **predict the resale price of used cars** and provide meaningful insights into the used car market using historical vehicle data.
-
-The prediction is based on important vehicle attributes such as:
-
-* Brand
-* Model
-* Manufacturing Year
-* Age of the car
-* Kilometers driven
-* Fuel type
-* Transmission type
-* Ownership history
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/ML-Scikit--Learn-orange?style=for-the-badge&logo=scikit-learn">
+  <img src="https://img.shields.io/badge/Data-Pandas-yellow?style=for-the-badge&logo=pandas">
+  <img src="https://img.shields.io/badge/Visualization-Matplotlib-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Status-In%20Progress-yellow?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-MIT-red?style=for-the-badge">
+</p>
 
 ---
 
-## 🎯 Objectives
+## 📌 Project Overview
 
-* Perform **data integration** from multiple datasets
-* Clean and preprocess real-world used car data
-* Analyze pricing trends using **EDA (Exploratory Data Analysis)**
-* Build **machine learning models** to predict car prices
-* Provide insights helpful for **buyers, sellers, and businesses**
+The **Used Car Price Prediction and Insights System** is a Machine Learning–based project developed as part of the **Semester Guided Project (SGP)**.
+
+The goal of this system is to:
+
+- Predict the resale price of used cars
+- Analyze pricing trends
+- Provide meaningful insights into the used car market
+
+The prediction is based on important vehicle attributes such as:
+
+- Brand  
+- Model  
+- Manufacturing Year  
+- Age of the car  
+- Kilometers driven  
+- Fuel type  
+- Transmission type  
+- Ownership history  
+
+---
+
+## 🎯 Project Objectives
+
+- Perform **data integration** from multiple datasets  
+- Clean and preprocess real-world used car data  
+- Conduct **Exploratory Data Analysis (EDA)**  
+- Build accurate **regression models**  
+- Provide actionable insights for **buyers, sellers, and businesses**
 
 ---
 
@@ -32,99 +52,110 @@ The prediction is based on important vehicle attributes such as:
 
 This project uses **two used-car datasets** that were:
 
-1. **Merged and integrated**
-2. **Cleaned and standardized**
-3. Prepared for further **encoding and feature engineering**
+1. Merged and integrated  
+2. Cleaned and standardized  
+3. Prepared for encoding and feature engineering  
 
-Current progress:
+### ✅ Current Progress
 
-* ✅ Data collection completed
-* ✅ Data integration completed
-* ✅ Data cleaning & preprocessing completed
-* ⏳ Categorical encoding in progress
-* ⏳ Feature engineering pending
-* ⏳ Model training pending
-* ⏳ Deployment pending
-
----
-
-## ⚙️ Data Preprocessing Steps
-
-The following preprocessing tasks have been performed:
-
-* Handling missing values
-* Removing duplicates
-* Standardizing column names
-* Converting categorical text to lowercase for consistency
-* Creating derived features such as **car age**
-* Preparing a **final cleaned dataset** for modeling
+- ✔ Data collection completed  
+- ✔ Data integration completed  
+- ✔ Data cleaning & preprocessing completed  
+- ⏳ Categorical encoding in progress  
+- ⏳ Feature engineering pending  
+- ⏳ Model training pending  
+- ⏳ Deployment pending  
 
 ---
 
-## 🧠 Machine Learning Workflow (Upcoming)
+## ⚙️ Data Preprocessing
 
-The next stages of the project include:
+The following preprocessing tasks were performed:
 
-* Encoding categorical variables
-* Feature selection and engineering
-* Training regression models such as:
+- Handling missing values  
+- Removing duplicates  
+- Standardizing column names  
+- Converting categorical values to lowercase  
+- Creating derived features such as **car age**  
+- Preparing final cleaned dataset for modeling  
 
-  * Linear Regression
-  * Random Forest Regressor
-  * Decision Tree Regressor
-  * Gradient Boosting (if applicable)
-* Model evaluation using:
+---
 
-  * MAE
-  * RMSE
-  * R² Score
+## 🧠 Machine Learning Workflow
+
+The upcoming ML stages include:
+
+- Encoding categorical variables  
+- Feature selection and engineering  
+- Training regression models such as:
+
+  - Linear Regression  
+  - Decision Tree Regressor  
+  - Random Forest Regressor  
+  - Gradient Boosting (if applicable)  
+
+- Model evaluation using:
+
+  - MAE (Mean Absolute Error)  
+  - RMSE (Root Mean Squared Error)  
+  - R² Score  
+
+---
+
+## 🔄 Project Workflow
+
+Data Collection → Data Cleaning → EDA → Feature Engineering →
+Model Training → Model Evaluation → Deployment
+
 
 ---
 
 ## 🏗 Project Structure
 
-```
 Used-Car-Price-Prediction-and-Insights-System/
 │
 ├── data/
-│   ├── raw/              # Original datasets
-│   └── processed/        # Cleaned & merged dataset
+│ ├── raw/ # Original datasets
+│ └── processed/ # Cleaned & merged dataset
 │
 ├── notebooks/
-│   ├── Data Integration & Cleaning
-│   └── Data Modelling (in progress)
+│ ├── Data Integration & Cleaning
+│ └── Data Modelling (in progress)
 │
-├── src/                  # Future ML scripts
+├── src/ # ML scripts (future implementation)
 ├── README.md
 ├── requirements.txt
 └── .gitignore
-```
+
 
 ---
 
 ## 💻 Tech Stack
 
-* **Python**
-* **Pandas, NumPy**
-* **Matplotlib, Seaborn**
-* **Scikit-learn**
-* **Jupyter Notebook**
+| Category | Tools Used |
+|----------|------------|
+| Programming Language | Python |
+| Data Processing | Pandas, NumPy |
+| Data Visualization | Matplotlib, Seaborn |
+| Machine Learning | Scikit-learn |
+| Development Environment | Jupyter Notebook |
 
 ---
 
 ## 🚀 Future Scope
 
-* Deploy the trained model using **Flask or Streamlit**
-* Create an **interactive web interface** for price prediction
-* Provide **real-time market insights**
-* Improve prediction accuracy with **advanced ML models**
+- Deploy the trained model using **Flask or Streamlit**
+- Create an interactive **web-based interface**
+- Provide real-time market insights
+- Improve accuracy using advanced ML models (XGBoost, LightGBM)
+- Integrate model API for external usage
 
 ---
 
 ## 👨‍💻 Contributors
 
-* **Yug Umrania**
-* **Parth Thakkar**
+- **Yug Umrania**
+- **Parth Thakkar**
 
 ---
 
@@ -134,6 +165,6 @@ This project is licensed under the **MIT License**.
 
 ---
 
-## 📢 Note
+## 📢 Disclaimer
 
-This repository is part of an **academic SGP project** and is intended for **learning and educational purposes**.
+This repository is part of an **academic Semester Guided Project (SGP)** and is intended for learning and educational purposes only.
