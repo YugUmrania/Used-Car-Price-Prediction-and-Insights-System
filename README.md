@@ -63,7 +63,9 @@ This project uses **two used-car datasets** that were:
 - ✔ Data collection completed  
 - ✔ Data integration completed  
 - ✔ Data cleaning & preprocessing completed  
-- ⏳ Categorical encoding in progress  
+- ✔ Categorical encoding completed (Label Encoding and One-Hot Encoding applied)  
+- ⏳ Outlier detection pending  
+- ⏳ Some EDA tasks pending  
 - ⏳ Feature engineering pending  
 - ⏳ Model training pending  
 - ⏳ Deployment pending  
@@ -79,6 +81,7 @@ The following preprocessing tasks were performed:
 - Standardizing column names  
 - Converting categorical values to lowercase  
 - Creating derived features such as **car age**  
+- Applying **Label Encoding and One-Hot Encoding** to categorical variables  
 - Preparing final cleaned dataset for modeling  
 
 ---
@@ -87,7 +90,7 @@ The following preprocessing tasks were performed:
 
 The upcoming ML stages include:
 
-- Encoding categorical variables  
+- Outlier detection and treatment  
 - Feature selection and engineering  
 - Training regression models such as:
 
@@ -109,22 +112,22 @@ The upcoming ML stages include:
 Data Collection → Data Cleaning → EDA → Feature Engineering →
 Model Training → Model Evaluation → Deployment
 
-
 ---
 
 ## 🏗 Project Structure
 ```
 📦 Used-Car-Price-Prediction-and-Insights-System
- ┣ 📂 data
- ┃ ┣ 📂 raw
- ┃ ┗ 📂 processed
- ┣ 📂 notebooks
- ┃ ┣ 📓 Data_Integration_Cleaning.ipynb
- ┃ ┗ 📓 Data_Modelling.ipynb
- ┣ 📂 src
- ┣ 📄 README.md
- ┣ 📄 requirements.txt
- ┗ 📄 .gitignore
+┣ 📂 data
+┃ ┣ 📂 raw
+┃ ┗ 📂 processed
+┣ 📂 notebooks
+┃ ┣ 📓 Data_Integration_Cleaning.ipynb
+┃ ┗ 📓 Data_Modelling.ipynb
+┣ 📂 src
+┣ 📄 README.md
+┣ 📄 requirements.txt
+┗ 📄 .gitignore
+
 ```
 
 ---
@@ -166,4 +169,4 @@ This project is licensed under the **MIT License**.
 
 ## 📢 Disclaimer
 
-This repository is part of an **academic Software Group Project (SGP)** and is intended for learning and educational purposes only.
+This repository is part of an **academic Software Group Project (SGP)** and is inte
