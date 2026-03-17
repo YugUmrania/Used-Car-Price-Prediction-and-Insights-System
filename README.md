@@ -113,33 +113,6 @@ Prediction Output
 
 ---
 
-## 🚀 How to Run (Upcoming Full Setup)
-
-### 1. Backend (FastAPI)
-
-```bash
-cd backend
-uvicorn main:app --reload
-```
-
-### 2. Frontend (Next.js)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## 🔮 Future Improvements
-
-* Deploy using Docker + Cloud (AWS / Vercel)
-* Add real-time price trend analytics
-* Improve model accuracy (XGBoost / Ensemble)
-* Add authentication system
-
----
 
 ## 👨‍💻 Contributors
 
