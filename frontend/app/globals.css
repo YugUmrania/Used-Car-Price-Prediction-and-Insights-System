@@ -170,8 +170,8 @@ body {
 .glass-card:hover {
   background: var(--bg-glass-hover);
   border-color: var(--border-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(108, 92, 231, 0.1);
 }
 
 .gradient-text {
@@ -350,7 +350,8 @@ select.input-field option {
 .loading-car {
   position: absolute;
   top: 8px;
-  font-size: 2.2rem;
+  width: 40px;
+  height: 40px;
   animation: car-drive 3s ease-in-out infinite;
   z-index: 2;
 }
@@ -383,19 +384,21 @@ select.input-field option {
 .star-btn {
   background: none;
   border: none;
-  font-size: 2rem;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 4px;
   line-height: 1;
+  color: var(--text-muted);
 }
 
 .star-btn:hover {
   transform: scale(1.2);
+  color: var(--warning);
 }
 
 .star-btn.active {
   animation: star-pop 0.3s ease;
+  color: var(--warning);
 }
 
 /* ===== Responsive ===== */

@@ -19,6 +19,10 @@ export const metadata: Metadata = {
     "XGBoost prediction",
     "resale value estimator",
   ],
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

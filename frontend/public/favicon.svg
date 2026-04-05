@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c5ce7"/>
+      <stop offset="100%" style="stop-color:#a29bfe"/>
+    </linearGradient>
+    <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#e0e0ff"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="url(#bgGrad)"/>
+  
+  <!-- YP Letters -->
+  <text x="14" y="28" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" letter-spacing="-1">YP</text>
+  
+  <!-- Car silhouette -->
+  <g transform="translate(8, 32)">
+    <!-- Car body -->
+    <path d="M2 16h44M2 16a1 1 0 110 2 1 1 0 010-2zm44 0a1 1 0 110 2 1 1 0 010-2zM0 13h48M1 13l2-5h42l3 5" 
+          stroke="url(#carGrad)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Wheels -->
+    <circle cx="10" cy="17" r="2.5" fill="white" opacity="0.9"/>
+    <circle cx="38" cy="17" r="2.5" fill="white" opacity="0.9"/>
+  </g>
+</svg>

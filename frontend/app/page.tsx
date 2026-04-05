@@ -3,20 +3,21 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Icons } from "@/components/Icons";
 
 const features = [
   {
-    icon: "⚡",
+    icon: "Lightning",
     title: "Instant Valuation",
     description: "Get accurate price predictions in seconds using our XGBoost AI model.",
   },
   {
-    icon: "📊",
+    icon: "Chart",
     title: "Market Intelligence",
     description: "Powered by real market data from thousands of used car transactions.",
   },
   {
-    icon: "🎯",
+    icon: "Target",
     title: "Precision Accuracy",
     description: "Fine-tuned model delivering reliable estimates you can trust.",
   },
@@ -72,13 +73,15 @@ export default function Home() {
           }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            fontSize: "5rem",
+            width: "80px",
+            height: "80px",
             marginBottom: "20px",
+            color: "var(--accent-primary)",
             filter: "drop-shadow(0 20px 40px rgba(108, 92, 231, 0.3))",
             transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
           }}
         >
-          🏎️
+          <Icons.CarHero style={{ width: "100%", height: "100%" }} />
         </motion.div>
 
         {/* Badge */}
@@ -100,7 +103,7 @@ export default function Home() {
             backdropFilter: "blur(10px)",
           }}
         >
-          <span style={{ fontSize: "0.7rem" }}>🤖</span>
+          <Icons.Brain style={{ width: "14px", height: "14px" }} />
           Powered by XGBoost AI
         </motion.div>
 
@@ -150,7 +153,9 @@ export default function Home() {
           <Link href="/predict">
             <button className="btn-primary" id="cta-predict">
               Predict Price Now
-              <span style={{ fontSize: "1.1rem" }}>→</span>
+              <span style={{ fontSize: "1.1rem" }}>
+                <Icons.ArrowRight style={{ width: "18px", height: "18px" }} />
+              </span>
             </button>
           </Link>
           <a href="#how-it-works">
@@ -165,6 +170,9 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
+          onClick={() => {
+            document.getElementById("stats-bar")?.scrollIntoView({ behavior: "smooth" });
+          }}
           style={{
             position: "absolute",
             bottom: "40px",
@@ -174,6 +182,14 @@ export default function Home() {
             gap: "8px",
             color: "var(--text-muted)",
             fontSize: "0.8rem",
+            cursor: "pointer",
+            transition: "color 0.3s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "var(--accent-secondary)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "var(--text-muted)";
           }}
         >
           <span>Scroll to explore</span>
@@ -182,13 +198,14 @@ export default function Home() {
             transition={{ duration: 1.5, repeat: Infinity }}
             style={{ fontSize: "1.2rem" }}
           >
-            ↓
+            <Icons.ChevronDown style={{ width: "20px", height: "20px" }} />
           </motion.div>
         </motion.div>
       </section>
 
       {/* ===== STATS BAR ===== */}
       <section
+        id="stats-bar"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -208,7 +225,24 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            style={{ textAlign: "center", minWidth: "120px" }}
+            style={{
+              textAlign: "center",
+              minWidth: "120px",
+              padding: "16px 24px",
+              borderRadius: "var(--radius-md)",
+              transition: "all 0.3s ease",
+              cursor: "default",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--bg-glass)";
+              e.currentTarget.style.transform = "translateY(-4px)";
+              e.currentTarget.style.boxShadow = "0 0 30px rgba(108, 92, 231, 0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
           >
             <div
               className="gradient-text"
@@ -281,9 +315,10 @@ export default function Home() {
                   fontSize: "1.8rem",
                   margin: "0 auto 20px",
                   border: "1px solid var(--border)",
+                  color: "var(--accent-primary)",
                 }}
               >
-                {feature.icon}
+                {Icons[feature.icon as keyof typeof Icons]({ style: { width: "28px", height: "28px" } })}
               </div>
               <h3
                 style={{
@@ -341,7 +376,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              whileHover={{ scale: 1.08, borderColor: "var(--accent-primary)" }}
+              whileHover={{ scale: 1.08, borderColor: "var(--accent-primary)", color: "var(--accent-primary)" }}
               style={{
                 padding: "10px 20px",
                 background: "var(--bg-glass)",
@@ -350,7 +385,7 @@ export default function Home() {
                 fontSize: "0.9rem",
                 color: "var(--text-secondary)",
                 cursor: "default",
-                transition: "all 0.2s ease",
+                transition: "all 0.3s ease",
               }}
             >
               {brand}
@@ -388,6 +423,12 @@ export default function Home() {
             margin: "0 auto",
             padding: "60px 40px",
             borderColor: "var(--border-accent)",
+            cursor: "default",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+          whileHover={{
+            borderColor: "var(--accent-primary)",
+            boxShadow: "0 0 60px rgba(108, 92, 231, 0.2)",
           }}
         >
           <h2
@@ -414,7 +455,9 @@ export default function Home() {
           <Link href="/predict">
             <button className="btn-primary" id="cta-predict-bottom">
               Start Free Prediction
-              <span style={{ fontSize: "1.1rem" }}>→</span>
+              <span style={{ fontSize: "1.1rem" }}>
+                <Icons.ArrowRight style={{ width: "18px", height: "18px" }} />
+              </span>
             </button>
           </Link>
         </motion.div>
@@ -430,10 +473,47 @@ export default function Home() {
           fontSize: "0.85rem",
         }}
       >
-        <p>
-          © {new Date().getFullYear()} CarVal AI — Built with 🧠 XGBoost & ❤️
+        <p style={{ marginBottom: "12px" }}>
+          © {new Date().getFullYear()} CarVal AI — Built with{" "}
+          <Icons.Brain style={{ width: "14px", height: "14px", display: "inline", verticalAlign: "middle" }} />{" "}
+          XGBoost &{" "}
+          <Icons.Heart style={{ width: "14px", height: "14px", display: "inline", verticalAlign: "middle" }} />{" "}
           Next.js
         </p>
+        <div style={{ display: "flex", justifyContent: "center", gap: "24px", flexWrap: "wrap" }}>
+          <Link
+            href="/privacy-policy"
+            style={{
+              color: "var(--text-muted)",
+              textDecoration: "none",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--accent-secondary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--text-muted)";
+            }}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms"
+            style={{
+              color: "var(--text-muted)",
+              textDecoration: "none",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--accent-secondary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--text-muted)";
+            }}
+          >
+            Terms & Conditions
+          </Link>
+        </div>
       </footer>
     </div>
   );

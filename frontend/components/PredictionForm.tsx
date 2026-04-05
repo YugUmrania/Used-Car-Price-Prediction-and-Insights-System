@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { Icons } from "@/components/Icons";
 
 /* ===== Data Constants ===== */
 const BRANDS = [
@@ -43,8 +44,7 @@ type PredictionState =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "success"; price: number; formSnapshot: FormData }
-  | { status: "error"; message: string }
-  | { status: "unsupported" };
+  | { status: "error"; message: string };
 
 /* ===== Component ===== */
 export default function PredictionForm() {
@@ -137,18 +137,19 @@ export default function PredictionForm() {
       clearInterval(interval);
 
       if (!res.ok) {
-        if (res.status === 422 || res.status === 400) {
-          setPrediction({ status: "unsupported" });
-        } else {
-          throw new Error(`Server error: ${res.status}`);
-        }
+        const errorData = await res.json().catch(() => null);
+        const message = errorData?.detail || "Something went wrong. Please try again.";
+        setPrediction({ status: "error", message });
         return;
       }
 
       const data = await res.json();
 
       if (data.predicted_price == null || data.predicted_price <= 0) {
-        setPrediction({ status: "unsupported" });
+        setPrediction({
+          status: "error",
+          message: "Unable to predict price for this vehicle configuration. Please try different details.",
+        });
         return;
       }
 
@@ -187,8 +188,30 @@ export default function PredictionForm() {
     setFeedbackSent(false);
   };
 
-  const handleFeedbackSubmit = () => {
-    setFeedbackSent(true);
+  const handleFeedbackSubmit = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+      await fetch(`${apiUrl}/review`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brand: prediction.status === "success" ? prediction.formSnapshot.brand : "",
+          model: prediction.status === "success" ? prediction.formSnapshot.model : "",
+          year: prediction.status === "success" ? Number(prediction.formSnapshot.year) : 0,
+          km_driven: prediction.status === "success" ? Number(prediction.formSnapshot.kmDriven) : 0,
+          transmission: prediction.status === "success" ? prediction.formSnapshot.transmission : "",
+          fuel_type: prediction.status === "success" ? prediction.formSnapshot.fuelType : "",
+          owner: prediction.status === "success" ? prediction.formSnapshot.owner : "",
+          predicted_price: prediction.status === "success" ? prediction.price : 0,
+          rating,
+          feedback,
+        }),
+      });
+      setFeedbackSent(true);
+    } catch (error) {
+      console.error("Failed to submit review:", error);
+      setFeedbackSent(true);
+    }
   };
 
   const capitalize = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
@@ -231,7 +254,7 @@ export default function PredictionForm() {
             gap: "8px",
           }}
         >
-          <span style={{ fontSize: "1.4rem" }}>🏎️</span>
+          <Icons.Logo style={{ width: "28px", height: "28px", color: "var(--accent-primary)" }} />
           <span className="gradient-text" style={{ fontSize: "1.2rem" }}>
             CarVal AI
           </span>
@@ -261,7 +284,9 @@ export default function PredictionForm() {
           >
             {/* Car driving animation */}
             <div className="loading-road">
-              <div className="loading-car">🚗</div>
+              <div className="loading-car">
+                <Icons.CarSmall style={{ width: "40px", height: "40px", color: "var(--accent-primary)" }} />
+              </div>
               <div className="loading-road-line">
                 {Array.from({ length: 20 }).map((_, i) => (
                   <span key={i} />
@@ -273,9 +298,9 @@ export default function PredictionForm() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              style={{ fontSize: "2.5rem", margin: "20px 0" }}
+              style={{ color: "var(--accent-secondary)", margin: "20px 0" }}
             >
-              ⚙️
+              <Icons.Gear style={{ width: "40px", height: "40px" }} />
             </motion.div>
 
             {/* Cycling messages */}
@@ -344,9 +369,9 @@ export default function PredictionForm() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                style={{ fontSize: "3rem", marginBottom: "12px" }}
+                style={{ color: "var(--success)", marginBottom: "12px" }}
               >
-                🎉
+                <Icons.Check style={{ width: "48px", height: "48px" }} />
               </motion.div>
               <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "8px" }}>
                 Estimated Market Value
@@ -389,7 +414,7 @@ export default function PredictionForm() {
                   gap: "8px",
                 }}
               >
-                <span>📋</span> Your Vehicle Details
+                  <Icons.Clipboard style={{ width: "16px", height: "16px" }} /> Your Vehicle Details
               </h3>
               <div
                 style={{
@@ -399,13 +424,13 @@ export default function PredictionForm() {
                 }}
               >
                 {[
-                  { label: "Brand", value: capitalize(prediction.formSnapshot.brand), icon: "🏷️" },
-                  { label: "Model", value: capitalize(prediction.formSnapshot.model), icon: "🚗" },
-                  { label: "Year", value: prediction.formSnapshot.year, icon: "📅" },
-                  { label: "KM Driven", value: `${Number(prediction.formSnapshot.kmDriven).toLocaleString()} km`, icon: "🛣️" },
-                  { label: "Transmission", value: prediction.formSnapshot.transmission, icon: "⚙️" },
-                  { label: "Fuel Type", value: prediction.formSnapshot.fuelType, icon: "⛽" },
-                  { label: "Ownership", value: capitalize(prediction.formSnapshot.owner) + " Owner", icon: "👤" },
+                  { label: "Brand", value: capitalize(prediction.formSnapshot.brand), icon: "Tag" },
+                  { label: "Model", value: capitalize(prediction.formSnapshot.model), icon: "CarSmall" },
+                  { label: "Year", value: prediction.formSnapshot.year, icon: "Calendar" },
+                  { label: "KM Driven", value: `${Number(prediction.formSnapshot.kmDriven).toLocaleString()} km`, icon: "Road" },
+                  { label: "Transmission", value: prediction.formSnapshot.transmission, icon: "Gear" },
+                  { label: "Fuel Type", value: prediction.formSnapshot.fuelType, icon: "Fuel" },
+                  { label: "Ownership", value: capitalize(prediction.formSnapshot.owner) + " Owner", icon: "User" },
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
@@ -429,7 +454,7 @@ export default function PredictionForm() {
                         gap: "4px",
                       }}
                     >
-                      <span>{item.icon}</span> {item.label}
+                      {Icons[item.icon as keyof typeof Icons]({ style: { width: "12px", height: "12px" } })} {item.label}
                     </div>
                     <div style={{ fontWeight: 600, fontSize: "0.95rem" }}>{item.value}</div>
                   </motion.div>
@@ -455,7 +480,7 @@ export default function PredictionForm() {
                   gap: "8px",
                 }}
               >
-                <span>⭐</span> Was this prediction accurate?
+                <Icons.Star style={{ width: "16px", height: "16px" }} /> Was this prediction accurate?
               </h3>
               <p
                 style={{
@@ -481,7 +506,10 @@ export default function PredictionForm() {
                         type="button"
                         aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
                       >
-                        {star <= (hoverRating || rating) ? "⭐" : "☆"}
+                        <Icons.Star
+                          style={{ width: "32px", height: "32px" }}
+                          filled={star <= (hoverRating || rating)}
+                        />
                       </button>
                     ))}
                     {rating > 0 && (
@@ -536,7 +564,9 @@ export default function PredictionForm() {
                     padding: "20px",
                   }}
                 >
-                  <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>🙏</div>
+                  <div style={{ color: "var(--success)", marginBottom: "12px" }}>
+                    <Icons.ThankYou style={{ width: "48px", height: "48px" }} />
+                  </div>
                   <p style={{ color: "var(--success)", fontWeight: 600, marginBottom: "4px" }}>
                     Thank you for your feedback!
                   </p>
@@ -580,51 +610,18 @@ export default function PredictionForm() {
               borderColor: "var(--error)",
             }}
           >
-            <div style={{ fontSize: "3rem", marginBottom: "16px" }}>❌</div>
+            <div style={{ color: "var(--error)", marginBottom: "16px" }}>
+              <Icons.AlertCircle style={{ width: "48px", height: "48px" }} />
+            </div>
             <h3 style={{ fontSize: "1.3rem", fontWeight: 600, marginBottom: "12px" }}>
-              Something Went Wrong
+              Prediction Failed
             </h3>
             <p style={{ color: "var(--text-secondary)", marginBottom: "28px", lineHeight: 1.6 }}>
               {prediction.message}
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
               <button className="btn-primary" onClick={() => setPrediction({ status: "idle" })}>
-                Try Again
-              </button>
-              <Link href="/">
-                <button className="btn-secondary">Back to Home</button>
-              </Link>
-            </div>
-          </motion.div>
-        )}
-
-        {/* ===== UNSUPPORTED VEHICLE STATE ===== */}
-        {prediction.status === "unsupported" && (
-          <motion.div
-            key="unsupported"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="glass-card"
-            style={{
-              width: "100%",
-              maxWidth: "500px",
-              padding: "48px 40px",
-              textAlign: "center",
-              borderColor: "var(--warning)",
-            }}
-          >
-            <div style={{ fontSize: "3rem", marginBottom: "16px" }}>⚠️</div>
-            <h3 style={{ fontSize: "1.3rem", fontWeight: 600, marginBottom: "12px" }}>
-              Vehicle Not Supported
-            </h3>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "28px", lineHeight: 1.6 }}>
-              Currently, we are not predicting the price for the entered vehicle.
-              Please try a different combination of brand, model, and specifications.
-            </p>
-            <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-              <button className="btn-primary" onClick={() => setPrediction({ status: "idle" })}>
-                Modify Details
+                Try Different Details
               </button>
               <Link href="/">
                 <button className="btn-secondary">Back to Home</button>
@@ -648,9 +645,9 @@ export default function PredictionForm() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200 }}
-                style={{ fontSize: "2.5rem", marginBottom: "12px" }}
+                style={{ color: "var(--accent-primary)", marginBottom: "12px" }}
               >
-                🚗
+                <Icons.CarSmall style={{ width: "48px", height: "48px" }} />
               </motion.div>
               <h1
                 style={{
@@ -680,14 +677,16 @@ export default function PredictionForm() {
                   <div style={{ position: "relative" }}>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      🏷️ Car Brand *
+                      <Icons.Tag style={{ width: "14px", height: "14px" }} /> Car Brand *
                     </label>
                     <input
                       className={`input-field ${errors.brand ? "error" : ""}`}
@@ -787,14 +786,16 @@ export default function PredictionForm() {
                   <div>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      🚗 Car Model *
+                      <Icons.CarSmall style={{ width: "14px", height: "14px" }} /> Car Model *
                     </label>
                     <input
                       className={`input-field ${errors.model ? "error" : ""}`}
@@ -820,14 +821,16 @@ export default function PredictionForm() {
                   <div>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      📅 Year of Manufacture *
+                      <Icons.Calendar style={{ width: "14px", height: "14px" }} /> Year of Manufacture *
                     </label>
                     <input
                       className={`input-field ${errors.year ? "error" : ""}`}
@@ -855,14 +858,16 @@ export default function PredictionForm() {
                   <div>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      🛣️ Kilometers Driven *
+                      <Icons.Road style={{ width: "14px", height: "14px" }} /> Kilometers Driven *
                     </label>
                     <input
                       className={`input-field ${errors.kmDriven ? "error" : ""}`}
@@ -889,14 +894,16 @@ export default function PredictionForm() {
                   <div>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      ⚙️ Transmission *
+                      <Icons.Gear style={{ width: "14px", height: "14px" }} /> Transmission *
                     </label>
                     <select
                       className={`input-field ${errors.transmission ? "error" : ""}`}
@@ -927,14 +934,16 @@ export default function PredictionForm() {
                   <div>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      ⛽ Fuel Type *
+                      <Icons.Fuel style={{ width: "14px", height: "14px" }} /> Fuel Type *
                     </label>
                     <select
                       className={`input-field ${errors.fuelType ? "error" : ""}`}
@@ -965,14 +974,16 @@ export default function PredictionForm() {
                   <div style={{ gridColumn: "1 / -1" }}>
                     <label
                       style={{
-                        display: "block",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                         fontSize: "0.8rem",
                         color: "var(--text-muted)",
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
                     >
-                      👤 Ownership Status *
+                      <Icons.User style={{ width: "14px", height: "14px" }} /> Ownership Status *
                     </label>
                     <select
                       className={`input-field ${errors.owner ? "error" : ""}`}
@@ -1019,7 +1030,7 @@ export default function PredictionForm() {
                     fontSize: "0.9rem",
                   }}
                 >
-                  <span>⚠️</span>
+                  <Icons.AlertTriangle style={{ width: "18px", height: "18px", flexShrink: 0 }} />
                   Please fill in all required fields to get your prediction.
                 </motion.div>
               )}
@@ -1037,7 +1048,7 @@ export default function PredictionForm() {
                 }}
                 id="btn-predict"
               >
-                🔮 Predict Price
+                <Icons.Predict style={{ width: "20px", height: "20px" }} /> Predict Price
               </motion.button>
             </form>
           </motion.div>
