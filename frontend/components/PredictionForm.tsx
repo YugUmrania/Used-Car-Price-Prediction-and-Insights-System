@@ -298,7 +298,7 @@ export default function PredictionForm() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              style={{ color: "var(--accent-secondary)", margin: "20px 0" }}
+              style={{ color: "var(--accent-secondary)", margin: "20px 0", display: "flex", justifyContent: "center" }}
             >
               <Icons.Gear style={{ width: "40px", height: "40px" }} />
             </motion.div>
@@ -369,7 +369,7 @@ export default function PredictionForm() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                style={{ color: "var(--success)", marginBottom: "12px" }}
+                style={{ color: "var(--success)", marginBottom: "12px", display: "flex", justifyContent: "center" }}
               >
                 <Icons.Check style={{ width: "48px", height: "48px" }} />
               </motion.div>
@@ -411,6 +411,7 @@ export default function PredictionForm() {
                   color: "var(--text-secondary)",
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: "8px",
                 }}
               >
@@ -564,7 +565,7 @@ export default function PredictionForm() {
                     padding: "20px",
                   }}
                 >
-                  <div style={{ color: "var(--success)", marginBottom: "12px" }}>
+                  <div style={{ color: "var(--success)", marginBottom: "12px", display: "flex", justifyContent: "center" }}>
                     <Icons.ThankYou style={{ width: "48px", height: "48px" }} />
                   </div>
                   <p style={{ color: "var(--success)", fontWeight: 600, marginBottom: "4px" }}>
@@ -610,7 +611,7 @@ export default function PredictionForm() {
               borderColor: "var(--error)",
             }}
           >
-            <div style={{ color: "var(--error)", marginBottom: "16px" }}>
+            <div style={{ color: "var(--error)", marginBottom: "16px", display: "flex", justifyContent: "center" }}>
               <Icons.AlertCircle style={{ width: "48px", height: "48px" }} />
             </div>
             <h3 style={{ fontSize: "1.3rem", fontWeight: 600, marginBottom: "12px" }}>
@@ -645,7 +646,7 @@ export default function PredictionForm() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200 }}
-                style={{ color: "var(--accent-primary)", marginBottom: "12px" }}
+                style={{ color: "var(--accent-primary)", marginBottom: "12px", display: "flex", justifyContent: "center" }}
               >
                 <Icons.CarSmall style={{ width: "48px", height: "48px" }} />
               </motion.div>
@@ -706,20 +707,32 @@ export default function PredictionForm() {
                     />
                     {formData.brand && (
                       <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         style={{
                           position: "absolute",
-                          right: "12px",
-                          top: "36px",
+                          left: "50%",
+                          top: "100%",
+                          transform: "translateX(-50%)",
+                          marginTop: "6px",
                           background: "var(--accent-primary)",
-                          padding: "2px 10px",
+                          padding: "6px 14px",
                           borderRadius: "var(--radius-full)",
                           fontSize: "0.75rem",
                           fontWeight: 500,
+                          color: "white",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          boxShadow: "0 4px 12px rgba(108, 92, 231, 0.4)",
+                          whiteSpace: "nowrap",
+                          zIndex: 10,
                         }}
                       >
-                        ✓ {capitalize(formData.brand)}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        {capitalize(formData.brand)}
                       </motion.div>
                     )}
                     <AnimatePresence>
