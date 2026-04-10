@@ -707,16 +707,15 @@ export default function PredictionForm() {
                     />
                     {formData.brand && (
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
                         style={{
                           position: "absolute",
-                          left: "50%",
-                          top: "100%",
-                          transform: "translateX(-50%)",
-                          marginTop: "6px",
+                          right: "12px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
                           background: "var(--accent-primary)",
-                          padding: "6px 14px",
+                          padding: "6px 12px",
                           borderRadius: "var(--radius-full)",
                           fontSize: "0.75rem",
                           fontWeight: 500,
@@ -727,9 +726,12 @@ export default function PredictionForm() {
                           boxShadow: "0 4px 12px rgba(108, 92, 231, 0.4)",
                           whiteSpace: "nowrap",
                           zIndex: 10,
+                          maxWidth: "120px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
                         }}
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
                         {capitalize(formData.brand)}
