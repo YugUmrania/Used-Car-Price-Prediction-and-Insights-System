@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
@@ -13,10 +14,17 @@ app = FastAPI(
     version = "1.0.0"
 )
 
- # Allow Next.js frontend to call this API
+# Allow Next.js frontend to call this API
+# Set ALLOWED_ORIGINS env var on deployment (comma-separated), e.g.:
+#   ALLOWED_ORIGINS=https://your-app.vercel.app,https://your-custom-domain.com
+allowed_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://127.0.0.1:3000"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins     = ["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins     = allowed_origins,
     allow_methods     = ["*"],
     allow_headers     = ["*"],
     allow_credentials = True
