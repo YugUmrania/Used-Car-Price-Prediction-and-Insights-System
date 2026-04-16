@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CarVal AI — Used Car Price Predictor",
+  title: "CarDealDekho — Used Car Price Predictor",
   description:
     "Predict the fair market value of any used car instantly using advanced AI and machine learning. Get accurate price estimates powered by XGBoost.",
   keywords: [
@@ -19,10 +19,6 @@ export const metadata: Metadata = {
     "XGBoost prediction",
     "resale value estimator",
   ],
-  icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
-  },
 };
 
 export default function RootLayout({
